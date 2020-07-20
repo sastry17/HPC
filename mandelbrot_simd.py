@@ -25,7 +25,7 @@ def initialize(size):
 
 def mandelbrot_simd(c, z, m, iterations):
     for n in range(iterations):
-        indices = np.abs(z) <= 10
+        indices = np.abs(z) <= 2
         z[indices] = z[indices] ** 2 + c[indices]
         m[indices] = n
     return m

@@ -22,7 +22,7 @@ def mandelbrot_python(size, iterations):
                  1j * (1.5 - 3. / size * i))
             z = 0
             for n in range(iterations):
-                if np.abs(z) <= 10:
+                if np.abs(z) <= 2:
                     z = z * z + c
                     m[i, j] = n
                 else:
