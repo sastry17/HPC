@@ -5,13 +5,14 @@ Created on Mon Jul 20 09:48:27 2020
 @author: JG07DA
 """
 
-
+from numba import jit
 import numpy as np
 import matplotlib.pyplot as plt
 #%matplotlib inline
 size = 400
 iterations = 100
 
+@jit
 def mandelbrot_python(size, iterations):
     m = np.zeros((size, size))
     for i in range(size):
@@ -27,7 +28,10 @@ def mandelbrot_python(size, iterations):
                     break
     return m
 
+#s = timeit.timeit(mandelbrot_python(size, iterations))
+#print(s)
 m = mandelbrot_python(size, iterations)
 fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 ax.imshow(np.log(m), cmap=plt.cm.hot)
 ax.set_axis_off()
+
