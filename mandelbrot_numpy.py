@@ -8,8 +8,9 @@ Created on Mon Jul 20 09:48:27 2020
 from numba import jit
 import numpy as np
 import matplotlib.pyplot as plt
-#%matplotlib inline
-size = 400
+
+
+size = 5000
 iterations = 100
 
 @jit
@@ -33,5 +34,5 @@ def mandelbrot_python(size, iterations):
 m = mandelbrot_python(size, iterations)
 fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 ax.imshow(np.log(m), cmap=plt.cm.hot)
-ax.set_axis_off()
+ax.set_axis_on()
 
