@@ -110,22 +110,22 @@ def mandelbrot_dynamic(xmin, xmax, ymin, ymax, N=100):
 
 
 def main():
-    xmin= -2.25
-    xmax= 0.75
+    xmin= -2.0
+    xmax= 1.0
     ymin= -1.5
     ymax= 1.5
 
-    print('mandelbrot_serial, Resolution 600x600:')
-    start = time.time()
-    arr  = mandelbrot_serial(xmin, xmax, ymin, ymax, N=600)
-    end = time.time()
-    print(f'{end - start} secs')
+    # print('mandelbrot_serial, Resolution 600x600:')
+    # start = time.time()
+    # arr  = mandelbrot_serial(xmin, xmax, ymin, ymax, N=600)
+    # end = time.time()
+    # print(f'{end - start} secs')
 
-    print('\nmandelbrot parallel static, Resolution 600x600:')
-    start = time.time()
-    arr = mandelbrot_static(xmin, xmax, ymin, ymax, N=600)
-    end = time.time()
-    print(f'{end - start} secs')
+    # print('\nmandelbrot parallel static, Resolution 600x600:')
+    # start = time.time()
+    # arr = mandelbrot_static(xmin, xmax, ymin, ymax, N=600)
+    # end = time.time()
+    # print(f'{end - start} secs')
 
 
     print('\nmandelbrot parallel dynamic, Resolution 600x600:')
@@ -133,7 +133,8 @@ def main():
     arr = mandelbrot_dynamic(xmin, xmax, ymin, ymax, N=600)
     end = time.time()
     print(f'{end - start} secs')
-    plt.imshow(arr, extent=[xmin, xmax, ymin, ymax])
+   # plt.imshow(arr, extent=[xmin, xmax, ymin, ymax])
+    plt.imshow(np.log(arr), extent=[xmin, xmax, ymin, ymax], cmap=plt.cm.hot)
     plt.savefig('MandelBrot.png')
     plt.show()
 
