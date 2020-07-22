@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-size = 5000
+size = 200
 iterations = 100
 
 @jit
@@ -33,6 +33,10 @@ def mandelbrot_python(size, iterations):
 #print(s)
 m = mandelbrot_python(size, iterations)
 fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+plt.xmin = -2.0
+plt.xmax= 1.0
+plt.ymin= -1.5
+plt.ymax= 1.5
 ax.imshow(np.log(m), cmap=plt.cm.hot)
 ax.set_axis_on()
 
