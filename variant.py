@@ -192,8 +192,7 @@ def main():
     start_time = time.time()
     plot_naive=mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter)
     naive_run= float(time.time() - start_time)
-    print(naive_run)
-    print('\nMandelbrot Naive--- %s seconds ---' % (time.time() - start_time))
+    #print('\nMandelbrot Naive--- %s seconds ---' % (time.time() - start_time))
     
     # # start_time = time.time()
     # # mandel_set_numba(xmin,xmax,ymin,ymax,width,height,maxiter)
@@ -206,12 +205,12 @@ def main():
     start_time = time.time()
     plot_numba_vect=mandel_set_numba_vect(xmin,xmax,ymin,ymax,width,height,maxiter)
     numba_vect_run= (time.time() - start_time)
-    print('\nMandelbrot Numba Vectorized--- %s seconds ---' % (time.time() - start_time))
+    #print('\nMandelbrot Numba Vectorized--- %s seconds ---' % (time.time() - start_time))
     
     start_time = time.time()
     plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter)
     mp_run = (time.time() - start_time)
-    print('\nMandelbrot Multiprocessing --- %s seconds ---' % (time.time() - start_time))
+    #print('\nMandelbrot Multiprocessing --- %s seconds ---' % (time.time() - start_time))
     
     results("Naive",plot_naive,xmin,xmax,ymin,ymax)
     results("Numba_Vectorized",plot_numba_vect,xmin,xmax,ymin,ymax)
