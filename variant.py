@@ -164,7 +164,7 @@ def table(naive_run,numba_vect_run,mp_run):
     table_data=[
     ["Naive-Python", naive_run],
     ["Numba Vectorized", numba_vect_run],
-    ["Multiprocessing", mp_run],
+    ["Multiprocessing ("+str(ncpus)+" CPUs)" , mp_run],
     ]
     table = ax.table(cellText=table_data, loc='center')
     table.set_fontsize(14)
@@ -211,10 +211,11 @@ def main():
     plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter)
     mp_run = (time.time() - start_time)
     #print('\nMandelbrot Multiprocessing --- %s seconds ---' % (time.time() - start_time))
+    mp_name="Multiprocessing "+str(ncpus)+"(CPUs)"
     
     results("Naive",plot_naive,xmin,xmax,ymin,ymax)
     results("Numba_Vectorized",plot_numba_vect,xmin,xmax,ymin,ymax)
-    results("Multiprocessing",plt_mp,xmin,xmax,ymin,ymax)
+    results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
     table(naive_run,numba_vect_run,mp_run)
     os.rename("./Output/temp","./Output/"+thisrun)
     
