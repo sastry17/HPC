@@ -27,17 +27,26 @@
 \maketitle
 
 \section{Implementation}
+The implementation for the assignment is performed with $4$ methods as suggested in the tasks. Implementation with each method is described below:
 
 \subsection{Naive Version}
 %Naive version%
+The naive version is implemented with $2$-D arrays and $3$ methods: \textit{linspace()}, \textit{mandel\_naive()} and \textit{mandel\_set\_naive()}.
+\begin{itemize}
+    \item \textit{linspace(start, stop, n)} is used for creation of array with the start, stop and n variables denoting the range and the size. As per the project specification document, the values for start and stop are initialized. The function returns an array. The function is called for determining the real and imaginary parts of the array elements.
+    \item \textit{mandel\_naive(c, maxiter, threshold)} calculates the value of \textit{z} as per the iterations and checks for the value bound for the threshold specified. The function returns the value for the mandelbrot set.
+    \item \textit{mandel\_set\_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold)} computes the mandelbrot set by initializing the real and imaginary parts. The parameters \textit{width} and \textit{height} represent the $p_{r_e}$ and $p_{i_m}$, \textit{maxiter} denotes the maximum iterations \textit{I} and the threshold represents \textit{T} . The function returns a list with the mandelbrot set. 
+\end{itemize}
 
-\subsection{Numba}
+ 
+\subsection{Numba Version}
 %Numba version%
+The Numba version is similar to the naive version with an exception of using Numba \textit{@jit} decorator on top of the \textit{mandel\_naive()} function. As we run the program with multiple methods in a sequential execution, a seperate method is created called \textit{mandel\_numba()} with the \textit{@jit} decorator.
 
-\subsection{Numba-Vectorised}
+\subsection{Numba-Vectorized Version}
 %Numba vectorised%
 
-\subsection{Multiprocessing}
+\subsection{Multiprocessing Version}
 %Multiprocessing%
 
 
