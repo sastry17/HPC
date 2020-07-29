@@ -11,7 +11,6 @@
 % Colour table cells
 \usepackage[table]{xcolor}
 
-% Get larger line spacing in table
 \newcommand{\tablespace}{\\[1.25mm]}
 \newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
 \newcommand\tstrut{\rule{0pt}{2.0ex}}         % = `top' strut
@@ -27,9 +26,6 @@
 \begin{document}
 \maketitle
 
-%%%%%%%%%%%%%%%%%
-%   Problem 1   %
-%%%%%%%%%%%%%%%%%
 \section{Implementation}
 
 \section{Output}
@@ -40,6 +36,7 @@ Example of Simplex tableau:
          Method  & Execution Time & Speedup \\ 
          \hline % horizontal line
          Naive-Numpy   &  & -8 \\
+         Numba      &  &    \\
          Numba - Vectorized &  & 5 \\
          Multiprocessing &  & 1 \\
     \end{array}
