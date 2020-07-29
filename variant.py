@@ -37,7 +37,7 @@ def mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold):
     for x in range(width):
         for y in range(height):
             n[y][x] = mandel_naive(complex(r[x], i[y]), maxiter, threshold)
-    
+                
     return n
 
 #########################################################################################################
@@ -152,7 +152,7 @@ def createFolder(directory):
         print ('Error: Creating directory. ' +  directory)
 #########################################################################################################
 def results(name,arr,xmin,xmax,ymin,ymax):
-    plt.imshow(arr, extent=[xmin, xmax, ymin, ymax], cmap='hot')
+    plt.imshow(np.log(arr), extent=[xmin, xmax, ymin, ymax], cmap='hot')
     plt.suptitle(name)
     #path = "./Output/temp/"
     #plt.savefig(path+name+".pdf")
@@ -204,7 +204,7 @@ def main():
     # # start_time = time.time()
     # #plot_numba=mandel_adv_algo(xmin,xmax,ymin,ymax,width,height,maxiter)
     # # print('\nMandelbrot Numba Algo Improved--- %s seconds ---' % (time.time() - start_time))
-    
+
     start_time = time.time()
     plot_numba_vect=mandel_set_numba_vect(xmin,xmax,ymin,ymax,width,height,maxiter)
     numba_vect_run= (time.time() - start_time)
@@ -216,11 +216,11 @@ def main():
     #print('\nMandelbrot Multiprocessing --- %s seconds ---' % (time.time() - start_time))
     mp_name="Multiprocessing "+str(m)+"(CPUs)"
     
-    results("Naive",plot_naive,xmin,xmax,ymin,ymax)
-    results("Numba_Vectorized",plot_numba_vect,xmin,xmax,ymin,ymax)
-    results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
-    table(naive_run,numba_vect_run,mp_run,1)
-    os.rename("./Output/temp","./Output/"+thisrun)
+    #results("Naive",plot_naive,xmin,xmax,ymin,ymax)
+    #results("Numba_Vectorized",plot_numba_vect,xmin,xmax,ymin,ymax)
+    #results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
+    #table(naive_run,numba_vect_run,mp_run,1)
+    #os.rename("./Output/temp","./Output/"+thisrun)
    # mandelbrot_image(mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold))
     ####################################################################################################
     # run for multiple processors as per the machine
