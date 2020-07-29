@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+% Margins
+\usepackage[top=2.5cm, left=3cm, right=3cm, bottom=4.0cm]{geometry}
+% Colour table cells
+\usepackage[table]{xcolor}
+
+% Get larger line spacing in table
+\newcommand{\tablespace}{\\[1.25mm]}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+\newcommand\tstrut{\rule{0pt}{2.0ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+
+%%%%%%%%%%%%%%%%%
+%     Title     %
+%%%%%%%%%%%%%%%%%
+\title{Scientific Computing Using Python - Assignment}
+\author{Shreyas Srinivasa \\ shsr@es.aau.dk}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%
+%   Problem 1   %
+%%%%%%%%%%%%%%%%%
+\section{Implementation}
+
+\section{Output}
+
+Example of Simplex tableau:
+\begin{align}
+    \begin{array}{c | c | c}
+         Method  & Execution Time & Speedup \\ 
+         \hline % horizontal line
+         Naive-Numpy   &  & -8 \\
+         Numba - Vectorized &  & 5 \\
+         Multiprocessing &  & 1 \\
+    \end{array}
+\end{align}
+
+\section{Software Design}
+
+\section{Test Plan}
+
+
+\section{Profiling and Benchmarking}
+
+\end{document}
