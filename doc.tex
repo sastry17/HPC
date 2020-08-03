@@ -45,11 +45,25 @@ The Numba version is similar to the naive version with an exception of using Num
 
 \subsection{Numba-Vectorized Version}
 %Numba vectorised%
-The vectorized version adds the \textit{@vectorize} decorator to create numba \textit{ufuncs} for parallelization.
+The vectorized version adds the \textit{@vectorize} decorator to create numba \textit{ufuncs} for parallelization. In the vectorization version, the method that computes the values for the mandelbrot set are changed to optimize the computation. The optimization is done through factoring out the redundant calculations by passing the real and imaginary parts of the complex numbers directly to the mandel function and calculating their squares separately only once and avoiding the square root computation by equations $1$, $2$ and $3$ that denote the definition of the square of complex numbers, the absolute value, and the sum of two complex numbers.
+
+\begin{equation}
+    (a+bi)^2=(a+bi)(a+bi)=(a^2-b^2)+2abi
+   \end{equation}
+\begin{equation}
+    \left |(a+bi) \right |= \sqrt{a^2+b^2}
+\end{equation}
+\begin{equation}
+       (a+bi)+(c+di)=(a+c)+(b+d)i
+\end{equation}
+
+The script \textit{variant.py} calls for parallelization of the method \textit{mandel\_numba\_vect} that computes the values for the mandelbrot set. The default number of threads set by numba in NUMBA\_NUM\_THREADS is $8$. On running the script, the vectorized methods run with this default value. However, to compare the execution time with different threads, the script \textit{vectorized.py} is called with a shell script \textit{vectorished.sh}. The number of script can be set in the shell script.  On executing the shell script, the execution time for the computation of the mandeset is shown on the console. 
 
 
 \subsection{Multiprocessing Version}
 %Multiprocessing%
+
+
 
 
 \section{Output}
