@@ -7,7 +7,6 @@ Created on Wed Jul 22 13:28:54 2020
 
 import numpy as np
 from matplotlib import pyplot as plt 
-from matplotlib import colors
 import os
 import time
 import multiprocessing as mp
@@ -63,33 +62,8 @@ def mandel_set_numba(xmin,xmax,ymin,ymax,width,height,maxiter):
     
     return n
 
-
 #########################################################################################################
-#Numba - Algo Improved
 
-@jit(nopython=True)
-def mandel_numba_adv(creal, cimag, maxiter):
-    real = creal
-    imag = cimag
-    for n in range(maxiter):
-        real2 = real*real
-        imag2 = imag*imag
-        if real2 + imag2 > 4.0: #squared modulus
-            return n
-        imag = 2 * real*imag + cimag
-        real = real2 - imag2 + creal       
-    return n
-
-@jit(nopython=True)
-def mandel_adv_algo(xmin,xmax,ymin,ymax,width,height,maxiter):
-    r = np.linspace(xmin, xmax, width)
-    i = np.linspace(ymin, ymax, height)
-    n = np.empty((height, width), dtype=np.int32)
-    for x in range(width):
-        for y in range(height):
-            n[y, x] = mandel_numba_adv(r[x], i[y], maxiter)
-    return n
-#########################################################################################################
 #Numba Vectorize
 
 @vectorize([int32(complex64, int32)], target='parallel')
@@ -159,17 +133,18 @@ def results(name,arr,xmin,xmax,ymin,ymax):
     plt.show()
     #np.savetxt(path+name+'.csv', arr, delimiter=',') 
 #########################################################################################################
-def table(naive_run,numba_vect_run,mp_run,m):
+def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     fig = plt.figure(dpi=80)
     ax = fig.add_subplot(1,1,1)
     table_data=[
     ["Naive-Python", naive_run],
+    ["Numba", numba_run],
     ["Numba Vectorized", numba_vect_run],
     ["Multiprocessing ("+str(m)+" CPUs)" , mp_run],
     ]
     table = ax.table(cellText=table_data, loc='center')
     table.set_fontsize(14)
-    table.scale(1,4)
+    table.scale(1,5)
     ax.axis('off')
     path = "./Output/temp/"
     plt.savefig(path+"ExecutionTime.pdf")    
@@ -196,15 +171,12 @@ def main():
     plot_naive=mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold)
     naive_run= float(time.time() - start_time)
     #print('\nMandelbrot Naive--- %s seconds ---' % (time.time() - start_time))
+           
+    start_time = time.time()
+    plot_numba = mandel_set_numba(xmin,xmax,ymin,ymax,width,height,maxiter)
+    numba_run = float(time.time() - start_time)
+    #print('\nMandelbrot Numba--- %s seconds ---' % (time.time() - start_time))
     
-    # # start_time = time.time()
-    # # mandel_set_numba(xmin,xmax,ymin,ymax,width,height,maxiter)
-    # # print('\nMandelbrot Numba--- %s seconds ---' % (time.time() - start_time))
-    
-    # # start_time = time.time()
-    # #plot_numba=mandel_adv_algo(xmin,xmax,ymin,ymax,width,height,maxiter)
-    # # print('\nMandelbrot Numba Algo Improved--- %s seconds ---' % (time.time() - start_time))
-
     start_time = time.time()
     plot_numba_vect=mandel_set_numba_vect(xmin,xmax,ymin,ymax,width,height,maxiter)
     numba_vect_run= (time.time() - start_time)
@@ -216,12 +188,12 @@ def main():
     #print('\nMandelbrot Multiprocessing --- %s seconds ---' % (time.time() - start_time))
     mp_name="Multiprocessing "+str(m)+"(CPUs)"
     
-    #results("Naive",plot_naive,xmin,xmax,ymin,ymax)
-    #results("Numba_Vectorized",plot_numba_vect,xmin,xmax,ymin,ymax)
-    #results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
-    #table(naive_run,numba_vect_run,mp_run,1)
-    #os.rename("./Output/temp","./Output/"+thisrun)
-   # mandelbrot_image(mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold))
+    results("Naive",plot_naive,xmin,xmax,ymin,ymax)
+    results("Numba",plot_numba,xmin,xmax,ymin,ymax)
+    results("Numba_Vectorized",plot_numba_vect,xmin,xmax,ymin,ymax)
+    results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
+    table(naive_run,numba_run,numba_vect_run,mp_run,1)
+    os.rename("./Output/temp","./Output/"+thisrun)
     ####################################################################################################
     # run for multiple processors as per the machine
     
@@ -232,28 +204,12 @@ def main():
          mp_name="Multiprocessing "+str(m)+"(CPUs)"
          print(mp_name+" "+str(mp_run)+" seconds")
          
+    print("Computation complete! Please find the results at ./Ouput/...")
+         
+   
+         
     ######################################################################################################     
          
-def mandelbrot_image(fun, xmin=-2.0, xmax=0.5, ymin=-1.25, ymax=1.25, width=1000, height=1000, maxiter=80, cmap='magma'):
-        dpi = float(width) / 7.0
-        z = fun(xmin, xmax, ymin, ymax, width, height, maxiter)
-    
-        fig, ax = plt.subplots(figsize=(7,7), dpi=72)
-        plt.xticks([])
-        plt.yticks([])
-        plt.title("[{xmin}, {ymin}] to [{xmax}, {ymax}]".format(**locals()))
-    
-        norm = colors.PowerNorm(0.3)
-        ax.imshow(z,cmap=cmap,origin='lower',norm=norm)
-        
-    
-
-    
-    
-    
-    
-#########################################################################################################
-
 if __name__ == '__main__':
      main()
 #########################################################################################################
