@@ -11,7 +11,6 @@ import os
 import time
 import multiprocessing as mp
 from numba import jit, vectorize, complex64, int32
-import numba as nb
 
 
 #######################################################################################################
