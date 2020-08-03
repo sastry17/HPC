@@ -1,4 +1,4 @@
-expr='vectorized.mandel_set9(-2, 0.5, -1.25, 1.25, 1000, 1000, 80)'
+expr='vectorized.mandel_set_numba_vect(-2, 0.5, -1.25, 1.25, 1000, 1000, 80)'
 for threads in 1 2 4 8 15
 do
 	printf "%3i threads \n" ${threads}
