@@ -11,6 +11,7 @@ import os
 import time
 import multiprocessing as mp
 from numba import jit, vectorize, complex64, int32
+import numba as nb
 
 
 #######################################################################################################
@@ -135,11 +136,12 @@ def results(name,arr,xmin,xmax,ymin,ymax):
 #########################################################################################################
 def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     fig = plt.figure(dpi=80)
+    plt.title("Execution Time Overview", y=1.08)
     ax = fig.add_subplot(1,1,1)
     table_data=[
     ["Naive-Python", naive_run],
     ["Numba", numba_run],
-    ["Numba Vectorized", numba_vect_run],
+    ["Numba Vectorized (8 threads)", numba_vect_run],
     ["Multiprocessing ("+str(m)+" CPUs)" , mp_run],
     ]
     table = ax.table(cellText=table_data, loc='center')
@@ -190,19 +192,19 @@ def main():
     
     results("Naive",plot_naive,xmin,xmax,ymin,ymax)
     results("Numba",plot_numba,xmin,xmax,ymin,ymax)
-    results("Numba_Vectorized",plot_numba_vect,xmin,xmax,ymin,ymax)
+    results("Numba_Vectorized (8 threads)",plot_numba_vect,xmin,xmax,ymin,ymax)
     results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
     table(naive_run,numba_run,numba_vect_run,mp_run,1)
     os.rename("./Output/temp","./Output/"+thisrun)
     ####################################################################################################
     # run for multiple processors as per the machine
     
-    for m in range(1, mp.cpu_count()+1):
-         start_time = time.time()
-         plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter,m)
-         mp_run = (time.time() - start_time)
-         mp_name="Multiprocessing "+str(m)+"(CPUs)"
-         print(mp_name+" "+str(mp_run)+" seconds")
+    # for m in range(1, mp.cpu_count()+1):
+    #      start_time = time.time()
+    #      plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter,m)
+    #      mp_run = (time.time() - start_time)
+    #      mp_name="Multiprocessing "+str(m)+"(CPUs)"
+    #      print(mp_name+" "+str(mp_run)+" seconds")
          
     print("Computation complete! Please find the results at ./Ouput/...")
          
