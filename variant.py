@@ -128,14 +128,14 @@ def createFolder(directory):
 def results(name,arr,xmin,xmax,ymin,ymax):
     plt.imshow(np.log(arr), extent=[xmin, xmax, ymin, ymax], cmap='hot')
     plt.suptitle(name)
-    #path = "./Output/temp/"
-    #plt.savefig(path+name+".pdf")
+    path = "./Output/temp/"
+    plt.savefig(path+name+".pdf")
     plt.show()
-    #np.savetxt(path+name+'.csv', arr, delimiter=',') 
+    np.savetxt(path+name+'.csv', arr, delimiter=',') 
 ##############################################################################
 def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     fig = plt.figure(dpi=80)
-    plt.title("Execution Time Overview", y=1.08)
+    plt.title("Execution Time Overview (in secs)", y=1.08)
     ax = fig.add_subplot(1,1,1)
     table_data=[
     ["Naive-Python", naive_run],

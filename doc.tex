@@ -66,13 +66,32 @@ The Multiprocessing version utilizes the multiprocessing library. The method use
 
 
 \section{Output}
+The output of the program are generated and stored in the \textit{/Output/} folder. THe folder is automatically created on first run and sub-folders are created on subsequent runs. The sub-folders are named as per the timestamp. The output folders contain the plots that are generated for each method, a table summarizing the execution times of each method and the simulation data. 
 
 \subsection{Plots}
+The plots are generated under the output folder for each implementation method. A sample plot that is generated can be seen in Figure \ref{fig:plot} below. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{Naive.pdf}
+    \caption{Plot for the Naive Version}
+    \label{fig:plot}
+\end{figure}
+
 
 \subsection{Execution Time}
+The execution time for each implementation methods are summarized in the \textit{ExecutionTime.pdf} file. The file contains a table that shows the execution time for each method. An example of the file is seen in the Figure \ref{fig:exec} below.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics{ExecutionTime.pdf}
+    \caption[scale=0.5]{Execution Time}
+    \label{fig:exec}
+\end{figure}
+
 
 \subsection{Simulation Data}
-
+The simulation data or the mandelset values generated for each implementation methods are exported as \textit{csv} files in the output folder. 
 
 \section{Software Design}
 
