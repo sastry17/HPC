@@ -13,7 +13,7 @@ import multiprocessing as mp
 from numba import jit, vectorize, complex64, int32
 
 
-#######################################################################################################
+##############################################################################
 #Naive
 
 def linspace(start, stop, n):
@@ -39,7 +39,7 @@ def mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold):
                 
     return n
 
-#########################################################################################################
+##############################################################################
 #Numba
 
 @jit(nopython=True)
@@ -62,7 +62,7 @@ def mandel_set_numba(xmin,xmax,ymin,ymax,width,height,maxiter):
     
     return n
 
-#########################################################################################################
+##############################################################################
 
 #Numba Vectorize
 
@@ -85,7 +85,7 @@ def mandel_set_numba_vect(xmin,xmax,ymin,ymax,width,height,maxiter):
     c = r1 + r2[:,None]*1j
     n = mandel_numba_vect(c,maxiter)
     return n
-#########################################################################################################
+##############################################################################
 #Multiprocessing
 #ncpus = 8 #set number of processing units here
 @jit(nopython=True)
@@ -117,14 +117,14 @@ def mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter,ncpus):
         n = pool.map(mandel_mp_row, ((a, xmin, xmax, width, maxiter) for a in i))
     return n
 
-#########################################################################################################
+##############################################################################
 def createFolder(directory):
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
     except OSError:
         print ('Error: Creating directory. ' +  directory)
-#########################################################################################################
+##############################################################################
 def results(name,arr,xmin,xmax,ymin,ymax):
     plt.imshow(np.log(arr), extent=[xmin, xmax, ymin, ymax], cmap='hot')
     plt.suptitle(name)
@@ -132,7 +132,7 @@ def results(name,arr,xmin,xmax,ymin,ymax):
     #plt.savefig(path+name+".pdf")
     plt.show()
     #np.savetxt(path+name+'.csv', arr, delimiter=',') 
-#########################################################################################################
+##############################################################################
 def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     fig = plt.figure(dpi=80)
     plt.title("Execution Time Overview", y=1.08)
@@ -151,7 +151,7 @@ def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     plt.savefig(path+"ExecutionTime.pdf")    
     plt.show()
 
-#########################################################################################################
+##############################################################################
 
 def main():
     xmin=-2.0 # Rc lower bound
@@ -195,7 +195,7 @@ def main():
     results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
     table(naive_run,numba_run,numba_vect_run,mp_run,1)
     os.rename("./Output/temp","./Output/"+thisrun)
-    ####################################################################################################
+    ##########################################################################
     # run for multiple processors as per the machine
     
     # for m in range(1, mp.cpu_count()+1):
@@ -209,8 +209,8 @@ def main():
          
    
          
-    ######################################################################################################     
+    ##########################################################################     
          
 if __name__ == '__main__':
      main()
-#########################################################################################################
+##############################################################################

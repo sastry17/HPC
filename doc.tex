@@ -57,13 +57,12 @@ The vectorized version adds the \textit{@vectorize} decorator to create numba \t
        (a+bi)+(c+di)=(a+c)+(b+d)i
 \end{equation}
 
-The script \textit{variant.py} calls for parallelization of the method \textit{mandel\_numba\_vect} that computes the values for the mandelbrot set. The default number of threads set by numba in NUMBA\_NUM\_THREADS is $8$. On running the script, the vectorized methods run with this default value. However, to compare the execution time with different threads, the script \textit{vectorized.py} is called with a shell script \textit{vectorished.sh}. The number of script can be set in the shell script.  On executing the shell script, the execution time for the computation of the mandeset is shown on the console. 
+The script \textit{variant.py} calls for parallelization of the method \textit{mandel\_numba\_vect} that computes the values for the mandelbrot set. The default number of threads set by numba in NUMBA\_NUM\_THREADS is $8$. On running the script, the vectorized methods run with this default value. However, to compare the execution time with different threads, the script \textit{vectorized.py} is called with a shell script \textit{vectorished.sh}. The number of script can be set in the shell script.  On executing the shell script, the execution time for the computation of the \textit{mandelset} is shown on the console. 
 
 
 \subsection{Multiprocessing Version}
 %Multiprocessing%
-
-
+The Multiprocessing version utilizes the multiprocessing library. The method uses lists and the computation is distributed. To minimize the communication overhead, each task returns a row. The number of CPUs for computation is set by \textit{mp.cpu\_count()} as per the system configuration. However, this can be changed by specifying the value. The multiprocessing version also performs a loop to incorporate as many processors specified. 
 
 
 \section{Output}
