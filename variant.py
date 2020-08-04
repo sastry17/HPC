@@ -129,7 +129,7 @@ def results(name,arr,xmin,xmax,ymin,ymax):
     plt.imshow(np.log(arr), extent=[xmin, xmax, ymin, ymax], cmap='hot')
     plt.suptitle(name)
     plt.xlabel(r'$\mathfrak{R[c]}$')
-    plt.ylabel(r'$\mathfrak{I[c]}$')
+    plt.ylabel(r'$\mathfrak{Iaaaaaaaa[c]}$')
     path = "./Output/temp/"
     plt.savefig(path+name+".pdf")
     plt.show()
@@ -143,7 +143,7 @@ def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     ["Naive-Python", naive_run],
     ["Numba", numba_run],
     ["Numba Vectorized (8 threads)", numba_vect_run],
-    ["Multiprocessing ("+str(m)+" CPUs)" , mp_run],
+    ["Multiprocessing (1 CPUs)" , mp_run],
     ]
     table = ax.table(cellText=table_data, loc='center')
     table.set_fontsize(14)
@@ -197,18 +197,35 @@ def main():
     results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
     table(naive_run,numba_run,numba_vect_run,mp_run,1)
     os.rename("./Output/temp","./Output/"+thisrun)
+    multiprocessing(xmin,xmax,ymin,ymax,width,height,maxiter,m)
     ##########################################################################
-    # run for multiple processors as per the machine
+  
     
-    # for m in range(1, mp.cpu_count()+1):
-    #      start_time = time.time()
-    #      plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter,m)
-    #      mp_run = (time.time() - start_time)
-    #      mp_name="Multiprocessing "+str(m)+"(CPUs)"
-    #      print(mp_name+" "+str(mp_run)+" seconds")
          
     print("Computation complete! Please find the results at ./Ouput/...")
-         
+      ##########################################################################
+        # run for multiple processors as per the machine
+      
+def multiprocessing(xmin,xmax,ymin,ymax,width,height,maxiter,cpu):
+    exeTimes=[0]
+    for cpu in range(1, mp.cpu_count()+1):
+          start_time = time.time()
+          mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter,cpu)
+          mp_run = (time.time() - start_time)
+          exeTimes.insert(cpu+1, mp_run)
+          mp_name="Multiprocessing "+str(cpu)+"(CPUs)"
+          print(mp_name+" "+str(mp_run)+" seconds")
+     
+    plt.margins(x=0)
+    plt.margins(y=0)
+    plt.xlabel("# CPU's")
+    plt.ylabel("Time in seconds")
+    plt.title("Execution Time - Multiprocessing")
+    plt.plot(exeTimes)
+    path = "./Output/temp/"
+    plt.savefig(path+"Execution-Time-Multiprocessing"+".pdf")
+      
+      
    
          
     ##########################################################################     
