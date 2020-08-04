@@ -94,10 +94,16 @@ The execution time for each implementation methods are summarized in the \textit
 The simulation data or the mandelset values generated for each implementation methods are exported as \textit{csv} files in the output folder. 
 
 \section{Software Design}
+The software design considerations are described in the following subsections.
 
 \subsection{Design Considerations}
+The script is designed to accept input parameters and assumptions from the main method. The input parameters are initialized based on the problem specification provided in the assignment. The values for the threshold, lower bounds, upper bounds are initialized and the values for the number of iterations,  $p_{r_e}$ (height) and $p_{i_m}$ (width) can be provided as per the requirement and system resources.
+
+The main method calls the implementation versions sequentially and records the execution time. The methods for the creation of plots and the tabulation are called after the mandelset computation.  
 
 \subsection{Optimization Considerations}
+
+
 
 \subsection{Algorithm}
 

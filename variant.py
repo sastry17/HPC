@@ -128,6 +128,8 @@ def createFolder(directory):
 def results(name,arr,xmin,xmax,ymin,ymax):
     plt.imshow(np.log(arr), extent=[xmin, xmax, ymin, ymax], cmap='hot')
     plt.suptitle(name)
+    plt.xlabel(r'$\mathfrak{R[c]}$')
+    plt.ylabel(r'$\mathfrak{I[c]}$')
     path = "./Output/temp/"
     plt.savefig(path+name+".pdf")
     plt.show()
@@ -156,8 +158,8 @@ def table(naive_run,numba_run,numba_vect_run,mp_run,m):
 def main():
     xmin=-2.0 # Rc lower bound
     xmax=1.0  # Rc upper bound
-    ymin=-1.5 # Tc lower bound
-    ymax=1.5  # Tc upper bound
+    ymin=-1.5 # Ic lower bound
+    ymax=1.5  # Ic upper bound
     width=1000  #Pre
     height=1000 #Pim
     maxiter=100 #iterations
