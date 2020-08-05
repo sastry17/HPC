@@ -126,6 +126,7 @@ def createFolder(directory):
         print ('Error: Creating directory. ' +  directory)
 ##############################################################################
 def results(name,arr,xmin,xmax,ymin,ymax):
+    np.seterr(divide = 'ignore')
     plt.imshow(np.log(arr), extent=[xmin, xmax, ymin, ymax], cmap='hot')
     plt.suptitle(name)
     plt.xlabel(r'$\mathfrak{R[c]}$')
@@ -147,7 +148,7 @@ def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     ]
     table = ax.table(cellText=table_data, loc='center')
     table.set_fontsize(14)
-    table.scale(1,5)
+    table.scale(1,4)
     ax.axis('off')
     path = "./Output/temp/"
     plt.savefig(path+"ExecutionTime.pdf")    
@@ -169,35 +170,47 @@ def main():
     thisrun = time.strftime("%Y%m%d-%H%M%S")
     createFolder('./Output/temp')
        
-    
+    print("Running Naive version...")
     start_time = time.time()
     plot_naive=mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold)
     naive_run= float(time.time() - start_time)
     #print('\nMandelbrot Naive--- %s seconds ---' % (time.time() - start_time))
-           
+    print("Naive Version complete")
+        
+    print("Running Numba version...")
     start_time = time.time()
     plot_numba = mandel_set_numba(xmin,xmax,ymin,ymax,width,height,maxiter)
     numba_run = float(time.time() - start_time)
     #print('\nMandelbrot Numba--- %s seconds ---' % (time.time() - start_time))
+    print("Numba Version complete")
     
+    print("Running Numba-Vectorized version...")
     start_time = time.time()
     plot_numba_vect=mandel_set_numba_vect(xmin,xmax,ymin,ymax,width,height,maxiter)
     numba_vect_run= (time.time() - start_time)
     #print('\nMandelbrot Numba Vectorized--- %s seconds ---' % (time.time() - start_time))
+    print("Numba-Vectorized Version complete")
     
+    print("Running Multiprocessing version...")
     start_time = time.time()
     plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter,1)
     mp_run = (time.time() - start_time)
     #print('\nMandelbrot Multiprocessing --- %s seconds ---' % (time.time() - start_time))
     mp_name="Multiprocessing "+str(m)+"(CPUs)"
+    print("Multiprocessing Version complete")
     
-    results("Naive",plot_naive,xmin,xmax,ymin,ymax)
-    results("Numba",plot_numba,xmin,xmax,ymin,ymax)
-    results("Numba_Vectorized (8 threads)",plot_numba_vect,xmin,xmax,ymin,ymax)
-    results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
+    print("Plotting results...")
+    # results("Naive",plot_naive,xmin,xmax,ymin,ymax)
+    # results("Numba",plot_numba,xmin,xmax,ymin,ymax)
+    # results("Numba_Vectorized (8 threads)",plot_numba_vect,xmin,xmax,ymin,ymax)
+    # results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
     table(naive_run,numba_run,numba_vect_run,mp_run,1)
+    print("Plotting Complete!")
+    # print("Running Multiprocessing with multiple CPU's...")
+    # multiprocessing(xmin,xmax,ymin,ymax,width,height,maxiter,m)
+    # print("Process complete!")
     os.rename("./Output/temp","./Output/"+thisrun)
-    multiprocessing(xmin,xmax,ymin,ymax,width,height,maxiter,m)
+    
     ##########################################################################
   
     
