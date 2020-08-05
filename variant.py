@@ -139,13 +139,13 @@ def results(name,arr,xmin,xmax,ymin,ymax):
 def table(naive_run,numba_run,numba_vect_run,mp_run,m):
     fig = plt.figure(dpi=80)
     plt.title("Execution Time Overview (in secs)", y=1.08)
-    ax = fig.add_subplot(1,1,1)
     table_data=[
     ["Naive-Python", naive_run],
     ["Numba", numba_run],
     ["Numba Vectorized (8 threads)", numba_vect_run],
     ["Multiprocessing (1 CPUs)" , mp_run],
     ]
+    ax = fig.add_subplot(1,1,1)
     table = ax.table(cellText=table_data, loc='center')
     table.set_fontsize(14)
     table.scale(1,4)
