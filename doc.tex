@@ -127,7 +127,8 @@ The first optimization consideration is to break down the calculation of the man
     \nl \proc{mandel\_set\_naive}{\var{xmin},\var{xmax},\var{ymin},\var{xmax},\var{Pre},\var{Pim},\var{iter}\var{threshold}}\;
     \nl $\var{r} = \proc{linspace}{\var{xmin},\var{xmax}, \var{Pre}} $ \;
     \nl $\var{i} = \proc{linspace}{\var{ymin},\var{ymax}, \var{Pim}} $\;
-    \nl $\var{n} = \var{n[with range Pre-Pim]} $\;
+    \nl \textbf{/*{Generate the array with the points bounds}*/} \;
+    \nl $\var{n} = \var{n[with range Pre-Pim]} $\; 
     \nl \ForEach{x in range Pre}{
         \nl \ForEach{y in range Pim}{
             \nl $\var{n[y][x]} = \proc{mandel\_naive}{\var{complex(r[x], i[y]), \var{iteration}, \var{threshold}}} $
