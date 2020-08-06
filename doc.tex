@@ -5,7 +5,13 @@
 \usepackage{amsmath,amssymb}
 \usepackage{parskip}
 \usepackage{graphicx}
+\usepackage[ruled,vlined]{algorithm2e}
 
+\newcommand{\var}{\texttt}
+\newcommand{\proc}[2]{\textsl{#1}(#2)}
+\newcommand{\prop}{\textit}
+
+\newcommand*{\escape}[1]{\texttt{\textbackslash#1}}
 % Margins
 \usepackage[top=2.5cm, left=3cm, right=3cm, bottom=4.0cm]{geometry}
 % Colour table cells
@@ -107,8 +113,45 @@ The first optimization consideration is to break down the calculation of the man
 
 \subsection{Algorithm}
 
-\section{Test Plan}
+\begin{algorithm}[H]
+  \caption{Mandelbrot-Set Computation}
 
+  \footnotesize
+  \DontPrintSemicolon
+
+  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+  \Input{\var{threshold}, \var{Pre}, \var{Pim}, \var{iterations}, \var{Rc(xmin,mmax)}, \var{Ic(ymin,ymax)} \tcc*[f] {specification}}
+  \Output{Mandelset \tcc*[f] {Mandelbrot set}}
+
+  \Begin{
+    \nl \proc{mandel\_set\_naive}{\var{xmin},\var{xmax},\var{ymin},\var{xmax},\var{Pre},\var{Pim},\var{iter}\var{threshold}}\;
+    \nl $\var{r} = \proc{linspace}{\var{xmin},\var{xmax}, \var{Pre}} $ \;
+    \nl $\var{i} = \proc{linspace}{\var{ymin},\var{ymax}, \var{Pim}} $\;
+    \nl $\var{n} = \var{n[with range Pre-Pim]} $\;
+    \nl \ForEach{x in range Pre}{
+        \nl \ForEach{y in range Pim}{
+            \nl $\var{n[y][x]} = \proc{mandel\_naive}{\var{complex(r[x], i[y]), \var{iteration}, \var{threshold}}} $
+        
+    
+    \nl $\var{return n}$\;}
+    \nl \var{end mandel\_set\_naive()}\;  }
+    
+    \nl \;
+    \nl \proc{mandel\_naive}{\var{c},\var{iteration},\var{threshold}}\;
+    \nl $\var{z} = \var{c}$\; 
+    \nl \ForEach{n in range maxiter}{
+        \If {abs(z) is greater than 2}{
+            \Return n
+        }
+        \nl $z = z*z + c $
+    }\nl \Return n\;
+    \nl $\var{end}$
+      }
+    
+\end{algorithm}
+
+\section{Test Plan}
+The test can be performed with the \textit{mandeltest.py} script. The script tests if the difference of the computed mandelset values is zero. The test for the naive and the numba versions are asserted with \textit{np.testing.assert\_allclose(x,y)}. 
 
 
 \section{Profiling and Benchmarking}
