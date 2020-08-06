@@ -200,15 +200,15 @@ def main():
     print("Multiprocessing Version complete")
     
     print("Plotting results...")
-    # results("Naive",plot_naive,xmin,xmax,ymin,ymax)
-    # results("Numba",plot_numba,xmin,xmax,ymin,ymax)
-    # results("Numba_Vectorized (8 threads)",plot_numba_vect,xmin,xmax,ymin,ymax)
-    # results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
+    results("Naive",plot_naive,xmin,xmax,ymin,ymax)
+    results("Numba",plot_numba,xmin,xmax,ymin,ymax)
+    results("Numba_Vectorized (8 threads)",plot_numba_vect,xmin,xmax,ymin,ymax)
+    results(mp_name,plt_mp,xmin,xmax,ymin,ymax)
     table(naive_run,numba_run,numba_vect_run,mp_run,1)
     print("Plotting Complete!")
-    # print("Running Multiprocessing with multiple CPU's...")
-    # multiprocessing(xmin,xmax,ymin,ymax,width,height,maxiter,m)
-    # print("Process complete!")
+    print("Running Multiprocessing with multiple CPU's...")
+    multiprocessing(xmin,xmax,ymin,ymax,width,height,maxiter,m)
+    print("Process complete!")
     os.rename("./Output/temp","./Output/"+thisrun)
     
     ##########################################################################
