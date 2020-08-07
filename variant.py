@@ -29,12 +29,12 @@ def mandel_naive(c, maxiter, threshold):
        z = z*z + c
     return n
 
-def mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold):
-    r = linspace(xmin, xmax, width)
-    i = linspace(ymin, ymax, height)
-    n = [[0]*width for _ in range(height)]
-    for x in range(width):
-        for y in range(height):
+def mandel_set_naive(xmin,xmax,ymin,ymax,Pre,Pim,maxiter, threshold):
+    r = linspace(xmin, xmax, Pre)
+    i = linspace(ymin, ymax, Pim)
+    n = [[0]*Pre for _ in range(Pim)]
+    for x in range(Pre):
+        for y in range(Pim):
             n[y][x] = mandel_naive(complex(r[x], i[y]), maxiter, threshold)
                 
     return n
@@ -161,8 +161,8 @@ def main():
     xmax=1.0  # Rc upper bound
     ymin=-1.5 # Ic lower bound
     ymax=1.5  # Ic upper bound
-    width=1000  #Pre
-    height=1000 #Pim
+    Pre=1000  #Pre
+    Pim=1000 #Pim
     maxiter=100 #iterations
     threshold = 4 #threshold T
     m = mp.cpu_count()
@@ -172,28 +172,28 @@ def main():
        
     print("Running Naive version...")
     start_time = time.time()
-    plot_naive=mandel_set_naive(xmin,xmax,ymin,ymax,width,height,maxiter, threshold)
+    plot_naive=mandel_set_naive(xmin,xmax,ymin,ymax,Pre,Pim,maxiter, threshold)
     naive_run= float(time.time() - start_time)
     #print('\nMandelbrot Naive--- %s seconds ---' % (time.time() - start_time))
     print("Naive Version complete")
         
     print("Running Numba version...")
     start_time = time.time()
-    plot_numba = mandel_set_numba(xmin,xmax,ymin,ymax,width,height,maxiter)
+    plot_numba = mandel_set_numba(xmin,xmax,ymin,ymax,Pre,Pim,maxiter)
     numba_run = float(time.time() - start_time)
     #print('\nMandelbrot Numba--- %s seconds ---' % (time.time() - start_time))
     print("Numba Version complete")
     
     print("Running Numba-Vectorized version...")
     start_time = time.time()
-    plot_numba_vect=mandel_set_numba_vect(xmin,xmax,ymin,ymax,width,height,maxiter)
+    plot_numba_vect=mandel_set_numba_vect(xmin,xmax,ymin,ymax,Pre,Pim,maxiter)
     numba_vect_run= (time.time() - start_time)
     #print('\nMandelbrot Numba Vectorized--- %s seconds ---' % (time.time() - start_time))
     print("Numba-Vectorized Version complete")
     
     print("Running Multiprocessing version...")
     start_time = time.time()
-    plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,width,height,maxiter,1)
+    plt_mp=mandel_set_mp(xmin,xmax,ymin,ymax,Pre,Pim,maxiter,1)
     mp_run = (time.time() - start_time)
     #print('\nMandelbrot Multiprocessing --- %s seconds ---' % (time.time() - start_time))
     mp_name="Multiprocessing "+str(m)+"(CPUs)"
@@ -207,7 +207,7 @@ def main():
     table(naive_run,numba_run,numba_vect_run,mp_run,1)
     print("Plotting Complete!")
     print("Running Multiprocessing with multiple CPU's...")
-    multiprocessing(xmin,xmax,ymin,ymax,width,height,maxiter,m)
+    multiprocessing(xmin,xmax,ymin,ymax,Pre,Pim,maxiter,m)
     print("Process complete!")
     os.rename("./Output/temp","./Output/"+thisrun)
     
