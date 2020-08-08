@@ -17,3 +17,21 @@ Doc.pdf
 The doc.pdf contains the documentation specified as per the assignment tasks. The documentation provides an overview of the imlementation, output, algorithm and the profiling information.
 
 ----------------------------------------------------------------------------------------------------------------------------
+Requirements
+
+The requirements for the scripts execution are:
+
+System requirements:
+1. Python 3 (>3.6)
+2. PDF reader
+3. OS - Windows/OSX/Ubuntu18.04 (Tested on these OS)
+
+Python modules:
+1. matplotlib
+2. numba
+3. numpy
+4. multiprocessing
+5. os
+6. time
+
+-----------------------------------------------------------------------------------------------------------------------------
